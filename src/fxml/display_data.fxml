@@ -1,0 +1,19 @@
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<GridPane fx:controller="controllers.DisplayDataCtrl"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <LineChart xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="lineChart">
+        <xAxis>
+            <NumberAxis fx:id="xAxis" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
+    </LineChart>
+<!--    <TextField fx:id="textField"/>
+    <Button text="Click Me" onAction="#show"/>-->
+</GridPane>
