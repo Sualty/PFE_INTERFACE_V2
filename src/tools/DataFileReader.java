@@ -14,7 +14,7 @@ public class DataFileReader {
         this.path_file = path_file;
     }
 
-    public String[][] getData () throws IOException {
+    public Float[][] getData () throws IOException {
         /* Le premier BufferedReader pour compter le nb de lignes */
         BufferedReader reader1 = new BufferedReader(new FileReader(path_file));
         int nbLines = 0;
@@ -24,7 +24,7 @@ public class DataFileReader {
 
 		/* Définir le format du tableau */
         String[] columnNames = {"Time","roll","pitch","yaw","accel_x","accel_y","accel_z","posx","posy","posz"};
-        String[][] data = new String[nbLines][columnNames.length];
+        Float[][] data = new Float[nbLines][columnNames.length];
 
 		/* Le deuxième BufferedReader pour lire les données du fichier log */
         BufferedReader reader2 = new BufferedReader(new FileReader(path_file));
@@ -36,7 +36,7 @@ public class DataFileReader {
                 String[] dataOfLine = thisLine.split(",");
 
                 for (int i=0; i<dataOfLine.length; i++) {
-                    data[indexLine][i] = dataOfLine[i];
+                    data[indexLine][i] = Float.parseFloat(dataOfLine[i]);
                 }
             }
             indexLine++;

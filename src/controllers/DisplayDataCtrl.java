@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -21,7 +23,7 @@ public class DisplayDataCtrl extends VBox {
     @FXML private RadioButton rbAccel;
     @FXML private RadioButton rbPos;
     private DataFileReader fileReader;
-    private String data[][];
+    private Float data[][];
     private String[] currentVars;
 
     @FXML
@@ -29,6 +31,7 @@ public class DisplayDataCtrl extends VBox {
         yAxis.setLabel("variable");
         xAxis.setLabel("time");
         lineChart.setTitle("Data Display");
+        lineChart.setCreateSymbols(false);
         currentVars = new String[3];
     }
 
@@ -37,7 +40,7 @@ public class DisplayDataCtrl extends VBox {
         data = fileReader.getData();
     }
 
-    public void insertLineChartData () {
+    private void insertLineChartData () {
         if (currentVars.length == 3) {
             lineChart.getData().removeAll(lineChart.getData());
             XYChart.Series series1 = new XYChart.Series();
@@ -48,54 +51,32 @@ public class DisplayDataCtrl extends VBox {
             series3.setName(currentVars[2]);
             switch (currentVars[0]) {
                 case "Roll":
-                    for (int i=1; i<10; i++) {
-                        series1.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][1])));
-                        series2.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][2])));
-                        series3.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][3])));
+                    for (int i = 1; i < data.length-1; i=i+2) {
+                        series1.getData().add(new XYChart.Data(data[i][0], data[i][1]));
+                        series2.getData().add(new XYChart.Data(data[i][0], data[i][2]));
+                        series3.getData().add(new XYChart.Data(data[i][0], data[i][3]));
                     }
                     break;
                 case "AccelX":
-                    for (int i=1; i<10; i++) {
-                        series1.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][4])));
-                        series2.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][5])));
-                        series3.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][6])));
+                    for (int i = 1; i < data.length-1; i=i+2) {
+                        series1.getData().add(new XYChart.Data(data[i][0], data[i][4]));
+                        series2.getData().add(new XYChart.Data(data[i][0], data[i][5]));
+                        series3.getData().add(new XYChart.Data(data[i][0], data[i][6]));
                     }
                     break;
                 case "PosX":
-                    for (int i=1; i<10; i++) {
-                        series1.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][7])));
-                        series2.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][8])));
-                        series3.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][9])));
+                    for (int i = 1; i < data.length-1; i=i+2) {
+                        series1.getData().add(new XYChart.Data(data[i][0], data[i][7]));
+                        series2.getData().add(new XYChart.Data(data[i][0], data[i][8]));
+                        series3.getData().add(new XYChart.Data(data[i][0], data[i][9]));
                     }
                     break;
+                default:
+                    break;
             }
-            lineChart.getData().addAll(series1, series2, series3);
+            lineChart.getData().addAll(series1,series2,series3);
         }
     }
-
-/*    public Scene getDisplayDataScene() throws IOException {
-        Scene scene  = new Scene(lineChart,800,600);
-
-        yAxis.setLabel("variable");
-        xAxis.setLabel("time");
-        lineChart.setTitle("Data Display");
-        XYChart.Series series1 = new XYChart.Series();
-        XYChart.Series series2 = new XYChart.Series();
-        XYChart.Series series3 = new XYChart.Series();
-        series1.setName("roll");
-        series2.setName("pitch");
-        series3.setName("yaw");
-
-        String[][] data = fileReader.getData();
-        for (int i=1; i<10; i++) {
-            series1.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][4])));
-            series2.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][5])));
-            series3.getData().add(new XYChart.Data(Float.parseFloat(data[i][0]),Float.parseFloat(data[i][6])));
-        }
-        lineChart.getData().addAll(series1, series2, series3);
-
-        return scene;
-    }*/
 
     /* Switch current vars to Roll, Pitch, Yaw */
     @FXML
