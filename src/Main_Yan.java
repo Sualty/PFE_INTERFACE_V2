@@ -16,17 +16,17 @@ public class Main_Yan extends Application {
     }
 
     public void displayData(Stage primaryStage) throws IOException {
+
         /* Change current scene to display_data.fxml */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/display_data.fxml"));
-        Pane pane = (Pane) loader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/display_data.fxml"));
         primaryStage.setFullScreen(true);
-        primaryStage.setScene(new Scene(pane,primaryStage.getWidth(),primaryStage.getHeight()));
+        primaryStage.setScene(new Scene(fxmlLoader.load(),primaryStage.getWidth(),primaryStage.getHeight()));
         primaryStage.show();
-        /* Input the data into the line chart */
+
+        /* Get the data from data file */
         DisplayDataCtrl controller =
-                loader.<DisplayDataCtrl>getController();
-        controller.initFileReader("res/data");
-        controller.initLineChartData();
+                fxmlLoader.<DisplayDataCtrl>getController();
+        controller.initData("res/data");
     }
 
     public static void main(String[] args) {
