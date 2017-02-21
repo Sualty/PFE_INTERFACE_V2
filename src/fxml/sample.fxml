@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import java.net.URL?>
-<GridPane fx:controller="sample.Controller"
+<GridPane fx:controller="controllers.Controller"
           xmlns:fx="http://javafx.com/fxml"
           alignment="center"
           hgap="10"
@@ -53,6 +53,6 @@
 
 
     <stylesheets>
-        <URL value="@Login.css" />
+        <URL value="@../style/Login.css" />
     </stylesheets>
 </GridPane>

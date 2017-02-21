@@ -1,4 +1,4 @@
-package sample;
+package controllers;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 import java.util.concurrent.*;
 
