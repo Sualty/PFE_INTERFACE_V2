@@ -6,20 +6,31 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
+import jdk.nashorn.internal.codegen.CompilerConstants;
+
+import java.util.concurrent.*;
 
 public class Controller {
     @FXML
     private TextField timer_textfield;
     @FXML
     private Label timer_and_result_label;
+    @FXML
+    private Button launch_acq_button;
+
+    private boolean isLaunchingAcq;
 
     @FXML
     public void initialize() {
         System.out.println("initializing controller");
+
+        isLaunchingAcq = false;
+
         timer_textfield.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -28,6 +39,7 @@ public class Controller {
                 }
             }
         });
+
         timer_textfield.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
@@ -48,33 +60,51 @@ public class Controller {
         //TODO
     }
 
-
+//TODO launch connection at 1 second
     public void launchAcq(ActionEvent actionEvent) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int time=0;
-                if(timer_textfield.getText().length()>0)
-                    time = Integer.parseInt(timer_textfield.getText());
+        if(!isLaunchingAcq) {
+            launch_acq_button.getStyleClass().add("busy");
 
-                for(int i = time;i>=0;i--) {
-                    final int j = i;
-                    sayNumber(j);
+            isLaunchingAcq = true;
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int time = 0;
+                    if (timer_textfield.getText().length() > 0)
+                        time = Integer.parseInt(timer_textfield.getText());
+
+                    for (int i = time; i >= 0; i--) {
+                        final int j = i;
+                        CallableVoice callableVoice = new CallableVoice(j);
+                        CallableLabel callableLabel = new CallableLabel(j);
+
+                        FutureTask<String> futureTask1 = new FutureTask<String>(callableVoice);
+                        FutureTask<String> futureTask2 = new FutureTask<String>(callableLabel);
+
+                        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+                        executor.execute(futureTask1);
+                        executor.execute(futureTask2);
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            timer_and_result_label.setText(j+"");
+                            launch_acq_button.getStyleClass().removeAll("busy");
+                            launch_acq_button.getStyleClass().add("button");
                         }
                     });
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    isLaunchingAcq = false;
                 }
-            }
-        });
-        thread.start();
+            });
+            thread.start();
+        }
     }
 
     public void sayNumber(int i) {
@@ -84,5 +114,37 @@ public class Controller {
         voice.allocate();
 
         voice.speak(i+"");
+    }
+
+
+    private class CallableVoice implements Callable<String> {
+        int j;
+        public CallableVoice(int j) {
+            this.j = j;
+        }
+        @Override
+        public String call() throws Exception {
+            sayNumber(j);
+            //return the thread name executing this callable task
+            return Thread.currentThread().getName();
+        }
+    }
+
+    private class CallableLabel implements Callable<String> {
+        int j;
+        public CallableLabel(int j) {
+            this.j = j;
+        }
+        @Override
+        public String call() throws Exception {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    timer_and_result_label.setText(j+"");
+                }
+            });
+            //return the thread name executing this callable task
+            return Thread.currentThread().getName();
+        }
     }
 }

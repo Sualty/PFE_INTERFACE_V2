@@ -37,7 +37,8 @@
             text="10"
             />
 
-    <Button text="Lancement de l'acquisition"
+    <Button fx:id="launch_acq_button"
+            text="Lancement de l'acquisition"
             GridPane.columnIndex="0"
             GridPane.rowIndex="2"
             GridPane.columnSpan="3"
