@@ -12,7 +12,8 @@ public class Main_Yan extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        displayData(primaryStage);
+/*        displayData(primaryStage);*/
+        display2D(primaryStage);
     }
 
     public void displayData(Stage primaryStage) throws IOException {
@@ -27,6 +28,14 @@ public class Main_Yan extends Application {
         DisplayDataCtrl controller =
                 fxmlLoader.<DisplayDataCtrl>getController();
         controller.initData("res/data");
+    }
+
+    public void display2D(Stage primaryStage) throws IOException {
+        /* Change current scene to display_data.fxml */
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/display2D.fxml"));
+        primaryStage.setFullScreen(true);
+        primaryStage.setScene(new Scene(fxmlLoader.load(),primaryStage.getWidth(),primaryStage.getHeight()));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
