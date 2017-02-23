@@ -21,7 +21,8 @@ public class Display2DCtrl {
     @FXML
     private Group group;
     private DataFileReader fileReader;
-    private Double data[][];
+    private Double dataA[][];
+    private Double dataB[][];
     private final int centerX = 275;
     private final int centerY = 250;
     private final int coefPos = 5;
@@ -46,12 +47,17 @@ public class Display2DCtrl {
         );
     }
 
-    public void initData (String path_file) throws IOException {
+    public void initDataA (String path_file) throws IOException {
         fileReader = new DataFileReader(path_file);
-        data = fileReader.getData();
+        dataA = fileReader.getData();
     }
 
-    private void drawSwordPath(String flagAxes) {
+    public void initDataB (String path_file) throws IOException {
+        fileReader = new DataFileReader(path_file);
+        dataB = fileReader.getData();
+    }
+
+    private void drawSwordPath(String flagAxes, Double data[][]) {
         if (!group.getChildren().isEmpty()) {
             group.getChildren().removeAll(group.getChildren());
         }
@@ -59,7 +65,7 @@ public class Display2DCtrl {
         final Path path = new Path();
         switch (flagAxes) {
             case "XY":
-                for (int i = 1; i < data.length-1; i=i+1) {
+                for (int i = 1; i < dataA.length-1; i=i+1) {
                     if (i == 1) {
                         path.getElements().add(new MoveTo(data[i][7]*coefPos + centerX, data[i][8]*coefPos + centerY));
                     } else {
@@ -111,7 +117,7 @@ public class Display2DCtrl {
         rbXZ.setSelected(false);
         rbXY.setSelected(true);
         rbXY.requestFocus();
-        drawSwordPath("XY");
+        drawSwordPath("XY", dataA);
     }
 
     /* Display movement on axes XZ */
@@ -121,7 +127,7 @@ public class Display2DCtrl {
         rbYZ.setSelected(false);
         rbXZ.setSelected(true);
         rbXZ.requestFocus();
-        drawSwordPath("XZ");
+        drawSwordPath("XZ", dataA);
     }
 
     /* Display movement on axes YZ */
@@ -131,7 +137,7 @@ public class Display2DCtrl {
         rbXZ.setSelected(false);
         rbYZ.setSelected(true);
         rbYZ.requestFocus();
-        drawSwordPath("YZ");
+        drawSwordPath("YZ", dataA);
     }
 
 
