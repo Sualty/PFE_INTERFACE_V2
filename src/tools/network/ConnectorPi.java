@@ -65,14 +65,23 @@ public class ConnectorPi implements NetworkInterface {
 
     //TODO get path of project dynamicly
     //TODO make history of datas , multiple files instead of only one
+    //TODO : problem of first connection : the user has to do ssh pi@invitee.local, accept and give password.
     @Override
     public void recuperationFichiers(String password) throws SftpException, IOException, JSchException {
-        String commandeRecuperation = "echo "+password+" | sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale1.txt /home/user/Bureau/PFE_V2/PFE_INTERFACE_V2/res/data\n";
-        String[] cmd = {"/bin/bash","-c",commandeRecuperation};
-        Process process = Runtime.getRuntime().exec(cmd);
-        System.out.println("PASSWORD "+password);
-        printStream(process.getInputStream(), "OUTPUT");
-        printStream(process.getErrorStream(), "ERROR");
+        String commandeRecuperation1 = "echo "+password+" |  sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale1.txt /home/user/Bureau/PFE_V2/PFE_INTERFACE_V2/res/dataA\n";
+        String commandeRecuperation2 = "echo "+password+" |  sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale2.txt /home/user/Bureau/PFE_V2/PFE_INTERFACE_V2/res/dataB\n";
+
+        String[] cmd1 = {"/bin/bash","-c",commandeRecuperation1};
+        String[] cmd2 = {"/bin/bash","-c",commandeRecuperation2};
+
+        Process process1 = Runtime.getRuntime().exec(cmd1);
+        Process process2 = Runtime.getRuntime().exec(cmd2);
+
+        printStream(process1.getInputStream(), "OUTPUT");
+        printStream(process1.getErrorStream(), "ERROR");
+
+        printStream(process2.getInputStream(), "OUTPUT");
+        printStream(process2.getErrorStream(), "ERROR");
     }
 
     public static void printStream(InputStream is, String type){
