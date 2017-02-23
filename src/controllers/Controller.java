@@ -1,6 +1,7 @@
 package controllers;
 
 import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import javafx.application.Platform;
@@ -9,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
@@ -24,6 +26,10 @@ public class Controller {
     private Label timer_and_result_label;
     @FXML
     private Button launch_acq_button;
+    @FXML
+    private TextField password_pc_field;
+    @FXML
+    private TextField password_rpi_field;
 
     private boolean isLaunchingAcq;
 
@@ -62,9 +68,13 @@ public class Controller {
             }});
     }
 
+    //TODO diplay if connection failed or not
     public void connectToRPI(ActionEvent actionEvent) {
+        String password_rpi="";
+        if(password_rpi_field.getText() != null)
+            password_rpi = password_rpi_field.getText();
         try {
-            connectorPi.connexionPi();
+            connectorPi.connexionPi(password_rpi);
         } catch (JSchException e) {
             e.printStackTrace();
         }
@@ -174,11 +184,18 @@ public class Controller {
 
         @Override
         public void run() {
+            String password_pc = "";
+            if(password_pc_field.getText()!=null)
+                password_pc = password_pc_field.getText();
             try {
                 connectorPi.lancementAcquisition();
+                connectorPi.recuperationFichiers(password_pc);
+                connectorPi.disconnect();
             } catch (JSchException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SftpException e) {
                 e.printStackTrace();
             }
         }

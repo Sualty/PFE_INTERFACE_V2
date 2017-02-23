@@ -19,33 +19,55 @@
         <Insets top="25" right="25" bottom="10" left="25"/>
     </padding>
 
-    <Button text="Connexion à la Raspberry Pi"
-            GridPane.columnIndex="0"
-            GridPane.rowIndex="0"
-            GridPane.columnSpan="3"
-            onAction="#connectToRPI"/>
+    <Label text="Mot de passe de l'ordinateur:"
+           GridPane.columnIndex="0"
+           GridPane.rowIndex="0"/>
 
-    <Label text="Compte à rebours:"
+    <TextField
+            fx:id="password_pc_field"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="0"
+            prefWidth="300"
+            text="bloubloublou974"/>
+
+    <Label text="Mot de passe de la Raspberry:"
            GridPane.columnIndex="0"
            GridPane.rowIndex="1"/>
 
     <TextField
-            fx:id="timer_textfield"
+            fx:id="password_rpi_field"
             GridPane.columnIndex="1"
             GridPane.rowIndex="1"
-            prefWidth="100"
-            text="10"
-            />
+            prefWidth="300"
+            text="pusheen"/>
+
+    <Label text="Compte à rebours (maximum 99):"
+           GridPane.columnIndex="0"
+           GridPane.rowIndex="2"/>
+
+    <TextField
+            fx:id="timer_textfield"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="2"
+            maxWidth="100"
+            text="10"/>
+
+    <Button text="Connexion à la Raspberry Pi"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="3"
+            GridPane.columnSpan="3"
+            onAction="#connectToRPI"/>
 
     <Button fx:id="launch_acq_button"
             text="Lancement de l'acquisition"
             GridPane.columnIndex="0"
-            GridPane.rowIndex="2"
+            GridPane.rowIndex="4"
             GridPane.columnSpan="3"
             onAction="#launchAcq"/>
 
     <HBox spacing="10" alignment="BOTTOM_CENTER"
-          GridPane.columnIndex="0" GridPane.rowIndex="3">
+          GridPane.columnIndex="0"
+          GridPane.rowIndex="5">
         <Label
                 text="0"
                 fx:id="timer_and_result_label"/>

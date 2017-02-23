@@ -13,17 +13,19 @@ import java.io.InputStreamReader;
 public class ConnectorPi implements NetworkInterface {
 
     private Session session;
+    private String password_rpi;
+    private String password_pc;
 
     @Override
-    public void connexionPi() throws JSchException {
+    public void connexionPi(String password_rpi) throws JSchException {
         String user = "pi";
-        String password = "pusheen";
+        this.password_rpi = password_rpi;
         String host = "invitee.local";
         int port=22;
 
         JSch jsch = new JSch();
         session = jsch.getSession(user, host, port);
-        session.setPassword(password);
+        session.setPassword(password_rpi);
         session.setConfig("StrictHostKeyChecking", "no");
         System.out.println("Establishing Connection...");
 
@@ -61,17 +63,16 @@ public class ConnectorPi implements NetworkInterface {
         channel.disconnect();
     }
 
+    //TODO get path of project dynamicly
+    //TODO make history of datas , multiple files instead of only one
     @Override
-    public void recuperationFichiers() throws SftpException, IOException, JSchException {
-        String commandeRecuperation1 = "echo ZUdug@H! | sudo -S sshpass -p 'pusheen' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale1.txt /home/user/Bureau/Sauvegarde_PFE/Valeurs/centrale1.txt\n";
-        String commandeRecuperation2 = "echo ZUdug@H! | sudo -S sshpass -p 'pusheen' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale2.txt /home/user/Bureau/Sauvegarde_PFE/Valeurs/centrale2.txt\n";
-        String[] cmd1 = {"/bin/bash","-c",commandeRecuperation1};
-        String[] cmd2 = {"/bin/bash","-c",commandeRecuperation2};
-        Process process1 = Runtime.getRuntime().exec(cmd1);
-        Process process2 = Runtime.getRuntime().exec(cmd2);
-
-        printStream(process1.getInputStream(), "OUTPUT");
-        printStream(process2.getErrorStream(), "ERROR");
+    public void recuperationFichiers(String password) throws SftpException, IOException, JSchException {
+        String commandeRecuperation = "echo "+password+" | sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale1.txt /home/user/Bureau/PFE_V2/PFE_INTERFACE_V2/res/data\n";
+        String[] cmd = {"/bin/bash","-c",commandeRecuperation};
+        Process process = Runtime.getRuntime().exec(cmd);
+        System.out.println("PASSWORD "+password);
+        printStream(process.getInputStream(), "OUTPUT");
+        printStream(process.getErrorStream(), "ERROR");
     }
 
     public static void printStream(InputStream is, String type){
@@ -91,26 +92,5 @@ public class ConnectorPi implements NetworkInterface {
     @Override
     public void disconnect() {
         session.disconnect();
-    }
-
-    public static void main(String args[])
-    {
-        ConnectorPi connectorPi = new ConnectorPi();
-        try {
-            connectorPi.connexionPi();
-
-            connectorPi.lancementAcquisition();
-
-            connectorPi.recuperationFichiers();
-
-            connectorPi.disconnect();
-
-        } catch (JSchException e) {
-            e.printStackTrace();
-        } catch (SftpException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

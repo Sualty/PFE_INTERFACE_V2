@@ -14,7 +14,7 @@ public interface NetworkInterface {
      * Connexion à la Raspberry Pi
      * @return true si la connexion est réussie
      */
-    void connexionPi() throws JSchException;
+    void connexionPi(String password_rpi) throws JSchException;
 
     /**
      * Lancement d'une acquisition
@@ -26,7 +26,7 @@ public interface NetworkInterface {
      * Récupération du fichier
      * @return le fichier sou forme de string
      */
-    void recuperationFichiers() throws SftpException, IOException, JSchException;
+    void recuperationFichiers(String password) throws SftpException, IOException, JSchException;
 
     void disconnect();
 
