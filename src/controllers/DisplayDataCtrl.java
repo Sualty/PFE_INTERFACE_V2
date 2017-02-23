@@ -3,11 +3,14 @@ package controllers;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import tools.DataFileReader;
 
 public class DisplayDataCtrl extends VBox {
@@ -20,6 +23,7 @@ public class DisplayDataCtrl extends VBox {
     private DataFileReader fileReader;
     private Double data[][];
     private String[] currentVars;
+    private Stage primaryStage;
 
     @FXML
     public void initialize() {
@@ -28,6 +32,20 @@ public class DisplayDataCtrl extends VBox {
         lineChart.setTitle("Data Display");
         lineChart.setCreateSymbols(false);
         currentVars = new String[3];
+    }
+
+    public void setPrimaryStage (Stage stage) {
+        primaryStage = stage;
+    }
+
+    @FXML
+    public void displayMenu() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/menu.fxml"));
+        primaryStage.setScene(new Scene(fxmlLoader.load(),primaryStage.getWidth(),primaryStage.getHeight()));
+
+        MainCtrl controller =
+                fxmlLoader.<MainCtrl>getController();
+        controller.setPrimaryStage(primaryStage);
     }
 
     public void initData (String path_file) throws IOException {

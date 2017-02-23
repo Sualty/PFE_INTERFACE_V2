@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class Main_Yan extends Application {
 
     private final String path_dataA = "res/dataA";
@@ -14,12 +15,11 @@ public class Main_Yan extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        displayData(primaryStage);
-/*            display2D(primaryStage);*/
+/*        displayData(primaryStage);*/
+            display2D(primaryStage);
     }
 
     public void displayData(Stage primaryStage) throws IOException {
-
         /* Change current scene to display_data.fxml */
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/display_data.fxml"));
         primaryStage.setFullScreen(true);
