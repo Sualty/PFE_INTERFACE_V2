@@ -2,20 +2,15 @@ package controllers;
 
 import java.io.IOException;
 
-import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import tools.DataFileReader;
 
 public class DisplayDataCtrl extends VBox {
-    @FXML private TextField textField;
     @FXML private LineChart<Number,Number> lineChart;
     @FXML private NumberAxis xAxis;
     @FXML private NumberAxis yAxis;
@@ -23,7 +18,7 @@ public class DisplayDataCtrl extends VBox {
     @FXML private RadioButton rbAccel;
     @FXML private RadioButton rbPos;
     private DataFileReader fileReader;
-    private Float data[][];
+    private Double data[][];
     private String[] currentVars;
 
     @FXML
@@ -51,21 +46,21 @@ public class DisplayDataCtrl extends VBox {
             series3.setName(currentVars[2]);
             switch (currentVars[0]) {
                 case "Roll":
-                    for (int i = 1; i < data.length-1; i=i+2) {
+                    for (int i = 1; i < data.length-1; i=i+3) {
                         series1.getData().add(new XYChart.Data(data[i][0], data[i][1]));
                         series2.getData().add(new XYChart.Data(data[i][0], data[i][2]));
                         series3.getData().add(new XYChart.Data(data[i][0], data[i][3]));
                     }
                     break;
                 case "AccelX":
-                    for (int i = 1; i < data.length-1; i=i+2) {
+                    for (int i = 1; i < data.length-1; i=i+3) {
                         series1.getData().add(new XYChart.Data(data[i][0], data[i][4]));
                         series2.getData().add(new XYChart.Data(data[i][0], data[i][5]));
                         series3.getData().add(new XYChart.Data(data[i][0], data[i][6]));
                     }
                     break;
                 case "PosX":
-                    for (int i = 1; i < data.length-1; i=i+2) {
+                    for (int i = 1; i < data.length-1; i=i+3) {
                         series1.getData().add(new XYChart.Data(data[i][0], data[i][7]));
                         series2.getData().add(new XYChart.Data(data[i][0], data[i][8]));
                         series3.getData().add(new XYChart.Data(data[i][0], data[i][9]));
