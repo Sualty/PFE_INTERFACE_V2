@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,6 +16,7 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="235.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -33,5 +35,6 @@
                </HBox.margin></RadioButton>
          </children></HBox>
       <Group fx:id="group" />
+      <Button mnemonicParsing="false" onAction="#displayMenu" text="Return to Menu" GridPane.rowIndex="2" />
    </children>
 </GridPane>

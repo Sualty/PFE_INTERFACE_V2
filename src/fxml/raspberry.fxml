@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RaspberryCtrl">
+    <padding>
+        <Insets bottom="10" left="25" right="25" top="25" />
+    </padding>
+
+    <Label text="Mot de passe de l'ordinateur:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+    <TextField fx:id="password_pc_field" prefWidth="300" text="bloubloublou974" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+    <Label text="Mot de passe de la Raspberry:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+    <TextField fx:id="password_rpi_field" prefWidth="300" text="pusheen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="Compte à rebours (maximum 99):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+    <TextField fx:id="timer_textfield" maxWidth="100" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <Button onAction="#connectToRPI" text="Connexion à la Raspberry Pi" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+
+    <Button fx:id="launch_acq_button" onAction="#launchAcq" text="Lancement de l'acquisition" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+
+    <HBox alignment="BOTTOM_CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="5">
+        <Label fx:id="timer_and_result_label" text="0" />
+    </HBox>
+   <Button mnemonicParsing="false" onAction="#displayMenu" text="Return to Menu" GridPane.rowIndex="7" />
+
+
+    <stylesheets>
+        <URL value="@../style/Login.css" />
+    </stylesheets>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+   </rowConstraints>
+</GridPane>

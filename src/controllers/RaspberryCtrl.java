@@ -8,11 +8,14 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 import tools.network.ConnectorPi;
 
 import java.io.File;
@@ -23,8 +26,7 @@ import java.util.concurrent.*;
 import fr.unice.polytech.invitee.predictor.*;
 import fr.unice.polytech.invitee.utils.*;
 
-
-public class Controller {
+public class RaspberryCtrl {
     @FXML
     private TextField timer_textfield;
     @FXML
@@ -39,6 +41,8 @@ public class Controller {
     private boolean isLaunchingAcq;
 
     private ConnectorPi connectorPi;
+
+    private Stage primaryStage;
 
     @FXML
     public void initialize() {
@@ -71,6 +75,20 @@ public class Controller {
                     }
                 }
             }});
+    }
+
+    public void setPrimaryStage (Stage stage) {
+        primaryStage = stage;
+    }
+
+    @FXML
+    public void displayMenu() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/menu.fxml"));
+        primaryStage.setScene(new Scene(fxmlLoader.load(),primaryStage.getWidth(),primaryStage.getHeight()));
+
+        MainCtrl controller =
+                fxmlLoader.<MainCtrl>getController();
+        controller.setPrimaryStage(primaryStage);
     }
 
     //TODO diplay if connection failed or not

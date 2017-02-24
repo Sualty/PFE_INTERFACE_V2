@@ -3,10 +3,13 @@ package controllers;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import tools.Axes;
@@ -32,6 +35,7 @@ public class Display2DCtrl {
     @FXML private RadioButton rbYZ;
     private Circle circle;
     private Axes axes;
+    private Stage primaryStage;
 
     public Display2DCtrl() {
     }
@@ -45,6 +49,20 @@ public class Display2DCtrl {
                 -1, 1, 1,
                 -1, 1, 1
         );
+    }
+
+    public void setPrimaryStage (Stage stage) {
+        primaryStage = stage;
+    }
+
+    @FXML
+    public void displayMenu() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/menu.fxml"));
+        primaryStage.setScene(new Scene(fxmlLoader.load(),primaryStage.getWidth(),primaryStage.getHeight()));
+
+        MainCtrl controller =
+                fxmlLoader.<MainCtrl>getController();
+        controller.setPrimaryStage(primaryStage);
     }
 
     public void initDataA (String path_file) throws IOException {
