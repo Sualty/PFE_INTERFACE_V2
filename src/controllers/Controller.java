@@ -10,14 +10,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
 import tools.network.ConnectorPi;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.*;
+
+import fr.unice.polytech.invitee.predictor.*;
+import fr.unice.polytech.invitee.utils.*;
+
 
 public class Controller {
     @FXML
@@ -199,5 +204,24 @@ public class Controller {
                 e.printStackTrace();
             }
         }
+    }
+
+    private class TreatThread implements Runnable {
+
+        @Override
+        public void run() {
+        //    int result = treatResult();
+
+        }
+    }
+
+    private int treatResult() throws IOException, InterruptedException {
+        Predictor predictor = new Predictor();
+        predictor.setPythonScriptPath("../RF_Predict.py");
+        predictor.setPklFilePath("../randomForestSave.pkl");
+
+        DataSet dataSet = DataSetBuilder.extract(new File("../res/dataA"));
+        int result = predictor.treat(dataSet);
+        return result;
     }
 }
