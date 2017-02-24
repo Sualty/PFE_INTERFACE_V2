@@ -68,8 +68,8 @@ public class ConnectorPi implements NetworkInterface {
     //TODO : problem of first connection : the user has to do ssh pi@invitee.local, accept and give password.
     @Override
     public void recuperationFichiers(String password) throws SftpException, IOException, JSchException {
-        String commandeRecuperation1 = "echo "+password+" |  sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale1.txt /home/user/Bureau/PFE_V2/PFE_INTERFACE_V2/res/dataA\n";
-        String commandeRecuperation2 = "echo "+password+" |  sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale2.txt /home/user/Bureau/PFE_V2/PFE_INTERFACE_V2/res/dataB\n";
+        String commandeRecuperation1 = "echo "+password+" |  sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale1.txt /home/blou/Bureau/PFE_V2/PFE_INTERFACE_V2/res/dataA\n";
+        String commandeRecuperation2 = "echo "+password+" |  sudo -S sshpass -p \'"+password_rpi+"\' scp pi@invitee.local:~/Epee/Valeurs/Lancement/Output/centrale2.txt /home/blou/Bureau/PFE_V2/PFE_INTERFACE_V2/res/dataB\n";
 
         String[] cmd1 = {"/bin/bash","-c",commandeRecuperation1};
         String[] cmd2 = {"/bin/bash","-c",commandeRecuperation2};

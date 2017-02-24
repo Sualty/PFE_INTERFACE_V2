@@ -124,8 +124,7 @@ public class RaspberryCtrl {
                             e.printStackTrace();
                         }
                         if(i==1) {
-                          Thread thread_launch = new Thread(new LaunchingThread());
-                          thread_launch.start();
+                            launch();
 
                             System.out.println("launcheeeeeeeeeeeeeeeeeeeeeeeeed");
                         }
@@ -135,7 +134,6 @@ public class RaspberryCtrl {
                             e.printStackTrace();
                         }
                     }
-
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -144,6 +142,16 @@ public class RaspberryCtrl {
                         }
                     });
                     isLaunchingAcq = false;
+
+                    try {
+                        treatResult();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
             });
             thread.start();
@@ -203,43 +211,38 @@ public class RaspberryCtrl {
         }
     }
 
-    private class LaunchingThread implements Runnable {
-
-        @Override
-        public void run() {
-            String password_pc = "";
-            if(password_pc_field.getText()!=null)
-                password_pc = password_pc_field.getText();
-            try {
-                connectorPi.lancementAcquisition();
-                connectorPi.recuperationFichiers(password_pc);
-                connectorPi.disconnect();
-            } catch (JSchException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SftpException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class TreatThread implements Runnable {
-
-        @Override
-        public void run() {
-        //    int result = treatResult();
-
+    private void launch() {
+        String password_pc = "";
+        if(password_pc_field.getText()!=null)
+            password_pc = password_pc_field.getText();
+        try {
+            connectorPi.lancementAcquisition();
+            connectorPi.recuperationFichiers(password_pc);
+            connectorPi.disconnect();
+        } catch (JSchException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SftpException e) {
+            e.printStackTrace();
         }
     }
 
     private int treatResult() throws IOException, InterruptedException {
         Predictor predictor = new Predictor();
-        predictor.setPythonScriptPath("../RF_Predict.py");
-        predictor.setPklFilePath("../randomForestSave.pkl");
-
-        DataSet dataSet = DataSetBuilder.extract(new File("../res/dataA"));
+        predictor.setPythonScriptPath("RF_Predict.py");
+        predictor.setPklFilePath("randomForestSave.pkl");
+        File f = new File("");
+        System.out.println("BLOUBLOU "+f.getCanonicalPath());
+        DataSet dataSet = DataSetBuilder.extract(new File("res/dataA"));
         int result = predictor.treat(dataSet);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                timer_and_result_label.setText(result+"");
+            }
+        });
         return result;
     }
 }
