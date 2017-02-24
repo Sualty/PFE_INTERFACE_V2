@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -11,30 +12,48 @@
 
 <GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Display2DCtrl">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.0" minWidth="0.0" prefWidth="479.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="0.0" prefWidth="800.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.0" minWidth="10.0" prefWidth="108.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="235.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="196.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="511.0" minHeight="10.0" prefHeight="511.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <RadioButton fx:id="rbXY" onAction="#switchToXY" text="Display XY">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></RadioButton>
+               </HBox.margin>
+               <padding>
+                  <Insets right="2.0" />
+               </padding></RadioButton>
             <RadioButton fx:id="rbXZ" onAction="#switchToXZ" text="Display XZ">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></RadioButton>
+               </HBox.margin>
+               <padding>
+                  <Insets right="2.0" />
+               </padding></RadioButton>
             <RadioButton fx:id="rbYZ" onAction="#switchToYZ" text="Display YZ">
                <HBox.margin>
                   <Insets bottom="5.0" right="5.0" top="5.0" />
-               </HBox.margin></RadioButton>
-         </children></HBox>
-      <Group fx:id="group" />
-      <Button mnemonicParsing="false" onAction="#displayMenu" text="Return to Menu" GridPane.rowIndex="2" />
+               </HBox.margin>
+               <padding>
+                  <Insets right="2.0" />
+               </padding></RadioButton>
+         </children>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin></HBox>
+      <Group fx:id="group" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#displayMenu" text="Menu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin></Button>
    </children>
+    <stylesheets>
+        <URL value="@../style/display2D.css" />
+    </stylesheets>
 </GridPane>

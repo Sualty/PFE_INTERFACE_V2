@@ -21,6 +21,6 @@
       <Button fx:id="btn2DDisplay" maxHeight="62.0" maxWidth="436.0" minHeight="62.0" minWidth="436.0" mnemonicParsing="false" onAction="#display2D" prefHeight="62.0" prefWidth="436.0" text="2D Display" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
    </children>
     <stylesheets>
-        <URL value="@../style/Login.css" />
+        <URL value="@../style/menu.css" />
     </stylesheets>
 </GridPane>

@@ -15,26 +15,26 @@
         <Insets bottom="10" left="25" right="25" top="25" />
     </padding>
 
-    <Label text="Mot de passe de l'ordinateur:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Label text="Mot de passe de l'ordinateur:" GridPane.rowIndex="1" />
 
-    <TextField fx:id="password_pc_field" prefWidth="300" text="bloubloublou974" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <TextField fx:id="password_pc_field" prefWidth="300" text="bloubloublou974" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-    <Label text="Mot de passe de la Raspberry:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Label text="Mot de passe de la Raspberry:" GridPane.rowIndex="2" />
 
-    <TextField fx:id="password_rpi_field" prefWidth="300" text="pusheen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <TextField fx:id="password_rpi_field" prefWidth="300" text="pusheen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-    <Label text="Compte à rebours (maximum 99):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <Label text="Compte à rebours (maximum 99):" GridPane.rowIndex="3" />
 
-    <TextField fx:id="timer_textfield" maxWidth="100" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <TextField fx:id="timer_textfield" maxWidth="100" text="10" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-    <Button onAction="#connectToRPI" text="Connexion à la Raspberry Pi" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+    <Button onAction="#connectToRPI" text="Connexion à la Raspberry Pi" GridPane.columnSpan="3" GridPane.rowIndex="4" />
 
-    <Button fx:id="launch_acq_button" onAction="#launchAcq" text="Lancement de l'acquisition" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+    <Button fx:id="launch_acq_button" onAction="#launchAcq" text="Lancement de l'acquisition" GridPane.columnSpan="3" GridPane.rowIndex="5" />
 
-    <HBox alignment="BOTTOM_CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="5">
+    <HBox alignment="BOTTOM_CENTER" spacing="10" GridPane.rowIndex="6">
         <Label fx:id="timer_and_result_label" text="0" />
     </HBox>
-   <Button mnemonicParsing="false" onAction="#displayMenu" text="Return to Menu" GridPane.rowIndex="7" />
+   <Button mnemonicParsing="false" onAction="#displayMenu" text="Menu" />
 
 
     <stylesheets>
@@ -53,6 +53,6 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints />
    </rowConstraints>
 </GridPane>

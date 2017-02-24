@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DisplayDataCtrl">
-    <LineChart fx:id="lineChart" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <LineChart fx:id="lineChart" prefHeight="700.0" prefWidth="1000.0" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
         <xAxis>
             <NumberAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
@@ -19,30 +20,33 @@
             <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
     </LineChart>
-    <HBox GridPane.rowIndex="1">
+    <HBox>
         <RadioButton fx:id="rbRoll" onAction="#switchToRoll" text="Roll Pitch Yaw" GridPane.rowIndex="1">
          <HBox.margin>
-            <Insets right="2.0" />
+            <Insets right="2.0" top="5.0" />
          </HBox.margin></RadioButton>
         <RadioButton fx:id="rbAccel" onAction="#switchToAccel" text="AccelX AccelY AccelZ" GridPane.rowIndex="1">
          <HBox.margin>
-            <Insets right="2.0" />
+            <Insets right="2.0" top="5.0" />
          </HBox.margin></RadioButton>
         <RadioButton fx:id="rbPos" onAction="#switchToPos" text="PosX PosY PosZ" GridPane.rowIndex="1">
          <HBox.margin>
-            <Insets right="2.0" />
+            <Insets right="2.0" top="5.0" />
          </HBox.margin></RadioButton>
       <padding>
          <Insets bottom="5.0" left="30.0" right="5.0" top="5.0" />
       </padding>
     </HBox>
-   <Button mnemonicParsing="false" onAction="#displayMenu" text="Return to Menu" GridPane.rowIndex="2" />
+   <Button mnemonicParsing="false" onAction="#displayMenu" text="Menu" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
     <rowConstraints>
-        <RowConstraints />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+      <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" />
+        <RowConstraints maxHeight="694.0" minHeight="660.0" prefHeight="660.0" />
     </rowConstraints>
    <columnConstraints>
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="1022.0" minWidth="957.0" prefWidth="972.0" />
+      <ColumnConstraints maxWidth="171.0" minWidth="10.0" prefWidth="156.0" />
    </columnConstraints>
+    <stylesheets>
+        <URL value="@../style/displayData.css" />
+    </stylesheets>
 </GridPane>
