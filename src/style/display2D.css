@@ -3,7 +3,7 @@ root {
 }
 .root {
     -fx-background-image: url("../images/background.jpg");
-    -fx-font-size: 32px;
+    -fx-font-size: 24px;
 }
 .label {
     -fx-font-weight: bold;

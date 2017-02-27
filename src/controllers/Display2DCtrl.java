@@ -83,7 +83,7 @@ public class Display2DCtrl {
         final Path path = new Path();
         switch (flagAxes) {
             case "XY":
-                for (int i = 1; i < dataA.length-1; i=i+1) {
+                for (int i = 1; i < data.length-1; i=i+1) {
                     if (i == 1) {
                         path.getElements().add(new MoveTo(data[i][7]*coefPos + centerX, data[i][8]*coefPos + centerY));
                     } else {
@@ -136,6 +136,7 @@ public class Display2DCtrl {
         rbXY.setSelected(true);
         rbXY.requestFocus();
         drawSwordPath("XY", dataA);
+/*        drawSwordPath("XY", dataB);*/
     }
 
     /* Display movement on axes XZ */
@@ -146,6 +147,7 @@ public class Display2DCtrl {
         rbXZ.setSelected(true);
         rbXZ.requestFocus();
         drawSwordPath("XZ", dataA);
+/*        drawSwordPath("XZ", dataB);*/
     }
 
     /* Display movement on axes YZ */
@@ -156,6 +158,7 @@ public class Display2DCtrl {
         rbYZ.setSelected(true);
         rbYZ.requestFocus();
         drawSwordPath("YZ", dataA);
+/*        drawSwordPath("XZ", dataB);*/
     }
 
 
